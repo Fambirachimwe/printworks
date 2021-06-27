@@ -1,12 +1,39 @@
-import React from 'react';
+import React  from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
+
+import { store, persistor } from "./stateManagement/store";
+import { PersistGate } from "redux-persist/integration/react";
+
+import { Provider } from 'react-redux';
+
+
+
+
+// Create a client
+const queryClient = new QueryClient()
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

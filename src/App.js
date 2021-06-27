@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import "./App.css";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Home } from "./Pages/Home/Home";
+import Login from "./Components/Login/Login";
+import AddJob from "./Components/AddJob/AddJob";
 
-function App() {
+
+const App = () => {
+
+  const [toggle, setToggle] = useState(false);
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" >
+
+      <Router>
+
+        <Switch>
+
+          
+
+
+          <Route exact path="/login">
+            <Login />
+          </Route>
+
+          <Route path="/">
+
+            {
+              localStorage.getItem("token") ? (<Home toggle={toggle} setToggle={setToggle} />) : (<Redirect to="/login" />)
+            }
+
+          </Route>
+
+         
+
+
+        </Switch>
+
+
+
+      </Router>
+
     </div>
   );
 }
