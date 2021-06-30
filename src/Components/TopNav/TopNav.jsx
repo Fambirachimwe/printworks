@@ -1,10 +1,21 @@
 import React from "react";
 import {Link}  from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 
-const TopNav = () => (
+
+const TopNav = ({user: {user: {username, email}}}) => {
+
+  const signOut = () => {
+    localStorage.removeItem("persist:root");
+    localStorage.removeItem("token")
+  }
+  
+  
+  return (
     <div className="iq-top-navbar">
+      {/* {console.log(username)} */}
           <div className="iq-navbar-custom">
             <nav className="navbar navbar-expand-lg navbar-light p-0">
               <div className="iq-navbar-logo d-flex align-items-center justify-content-between">
@@ -248,7 +259,8 @@ const TopNav = () => (
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <div className="caption bg-primary line-height">P</div>
+
+                        <div className="caption bg-primary line-height">{username ? username.split("")[0].toUpperCase(): ""}</div>
                       </Link>
                       <div
                         className="iq-sub-dropdown dropdown-menu"
@@ -267,99 +279,34 @@ const TopNav = () => (
                             <div className="profile-header">
                               <div className="cover-container text-center">
                                 <div className="rounded-circle profile-icon bg-primary mx-auto d-block">
-                                  P<Link to="#"></Link>
+                                  {username.split("")[0].toUpperCase()}
                                 </div>
                                 <div className="profile-detail mt-3">
                                   <h5>
-                                    <Link to="https://iqonic.design/themes/cloudbox/html/app/user-profile-edit.html">
-                                      Panny Marco
+                                    <Link to="#">
+                                      {username }
                                     </Link>
                                   </h5>
                                   <p>
                                     <Link
-                                      to="https://iqonic.design/cdn-cgi/l/email-protection"
+                                      to="#"
                                       className="__cf_email__"
                                       data-cfemail="6f1f0e010116020e1d0c002f08020e0603410c0002"
                                     >
-                                      [email&#160;protected]
+                                      {email}
                                     </Link>
                                   </p>
                                 </div>
                                 <Link
-                                  to="auth-sign-in.html"
+                                  to="/login"
+                                  onClick={signOut}
                                   className="btn btn-primary"
                                 >
                                   Sign Out
                                 </Link>
                               </div>
-                              <div className="profile-details mt-4 pt-4 border-top">
-                                <div className="media align-items-center mb-3">
-                                  <div className="rounded-circle iq-card-icon-small bg-primary">
-                                    A
-                                  </div>
-                                  <div className="media-body ml-3">
-                                    <div className="media justify-content-between">
-                                      <h6 className="mb-0">Anna Mull</h6>
-                                      <p className="mb-0 font-size-12">
-                                        <i>Signed Out</i>
-                                      </p>
-                                    </div>
-                                    <p className="mb-0 font-size-12">
-                                      <Link
-                                        to="https://iqonic.design/cdn-cgi/l/email-protection"
-                                        className="__cf_email__"
-                                        data-cfemail="aacbc4c4cbc7dfc6c6eacdc7cbc3c684c9c5c7"
-                                      >
-                                        [email&#160;protected]
-                                      </Link>
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="media align-items-center mb-3">
-                                  <div className="rounded-circle iq-card-icon-small bg-success">
-                                    K
-                                  </div>
-                                  <div className="media-body ml-3">
-                                    <div className="media justify-content-between">
-                                      <h6 className="mb-0">King Poilin</h6>
-                                      <p className="mb-0 font-size-12">
-                                        <i>Signed Out</i>
-                                      </p>
-                                    </div>
-                                    <p className="mb-0 font-size-12">
-                                      <Link
-                                        to="https://iqonic.design/cdn-cgi/l/email-protection"
-                                        className="__cf_email__"
-                                        data-cfemail="43282a2d24332c2a2f2a2d03242e222a2f6d202c2e"
-                                      >
-                                        [email&#160;protected]
-                                      </Link>
-                                    </p>
-                                  </div>
-                                </div>
-                                <div className="media align-items-center">
-                                  <div className="rounded-circle iq-card-icon-small bg-danger">
-                                    D
-                                  </div>
-                                  <div className="media-body ml-3">
-                                    <div className="media justify-content-between">
-                                      <h6 className="mb-0">Devid Worner</h6>
-                                      <p className="mb-0 font-size-12">
-                                        <i>Signed Out</i>
-                                      </p>
-                                    </div>
-                                    <p className="mb-0 font-size-12">
-                                      <Link
-                                        to="https://iqonic.design/cdn-cgi/l/email-protection"
-                                        className="__cf_email__"
-                                        data-cfemail="b1d5d4c7d8d5c6dec3dfd4c3f1d6dcd0d8dd9fd2dedc"
-                                      >
-                                        [email&#160;protected]
-                                      </Link>
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
+                              
+                              
                             </div>
                           </div>
                         </div>
@@ -372,7 +319,17 @@ const TopNav = () => (
           </div>
         </div>
 )
+  }
+
+const mapStateToProps = (state) => {
+
+  return {
+    ...state
+  }
+
+}
 
 
-export default TopNav;
+
+export default connect(mapStateToProps)(TopNav);
 

@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./App.css";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
-import { connect } from 'react-redux';
 import { Home } from "./Pages/Home/Home";
 import Login from "./Components/Login/Login";
-import AddJob from "./Components/AddJob/AddJob";
+import NotFound from './Components/NotFoundPage/NotFound';
 
 
 const App = () => {
 
-  const [toggle, setToggle] = useState(false);
-
-
-
+  
 
   return (
     <div className="App" >
@@ -21,23 +17,21 @@ const App = () => {
 
         <Switch>
 
-          
-
-
           <Route exact path="/login">
             <Login />
           </Route>
 
           <Route path="/">
-
             {
-              localStorage.getItem("token") ? (<Home toggle={toggle} setToggle={setToggle} />) : (<Redirect to="/login" />)
+              localStorage.getItem("token") ? 
+              (<Home />) :
+              (<Redirect to="/login" />)
             }
-
           </Route>
 
-         
-
+          <Route exact path="*" >
+              <NotFound />
+          </Route>
 
         </Switch>
 

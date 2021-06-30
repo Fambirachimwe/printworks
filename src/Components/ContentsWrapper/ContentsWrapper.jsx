@@ -219,7 +219,7 @@ const ContentsWrapper = () => {
                       </p>
                   <p className="mb-0">
                     <i className="las la-file-alt text-primary mr-2 font-size-20"></i>{" "}
-                        {activeJobs == 0 ? 0 : `0${activeJobs}`} Jobs
+                        {activeJobs === 0 ? 0 : `0${activeJobs}`} Jobs
                     </p>
                 </Link>
               </div>

@@ -7,17 +7,9 @@ const JobTableRow = ({data: {id, customer: {customer, email}, description , stat
 
     const {mutateAsync} = useMutation(deleteJob);
     const queryClient = useQueryClient();
-
     const remove = async () => {
-
         await mutateAsync(id)
-
         queryClient.invalidateQueries('jobs')
-        // await deleteJob(id);
-        // queryClient.invalidateQueries('jobs')
-
-        console.log("remove function clicked")
-
     }
 
     return (
@@ -41,7 +33,7 @@ const JobTableRow = ({data: {id, customer: {customer, email}, description , stat
                     className="dropdown-menu dropdown-menu-right"
                     aria-labelledby="dropdownMenuButton7"
                 >
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to={`/jobs/${id}`}>
                         <i className="ri-eye-fill mr-2"></i>View
                                   </Link>
                     <Link className="dropdown-item" onClick={remove} to="#">

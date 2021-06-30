@@ -2963,7 +2963,7 @@
                 };
                 var validateFileURL = void 0;
                 {
-                    var HOSTED_VIEWER_ORIGINS = ['null', 'http://mozilla.github.io', 'https://mozilla.github.io'];
+                    var HOSTED_VIEWER_ORIGINS = ['null', 'http://mozilla.github.io', 'https://mozilla.github.io',"http://localhost:1337", "https://localhost:1337", "http://localhost:3000"];
                     validateFileURL = function validateFileURL(file) {
                         if (file === undefined) {
                             return;

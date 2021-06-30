@@ -29,8 +29,7 @@ const Login = ({isAuth, setUser}) => {
             // console.log(user)
             
         }).catch(err =>{
-            // console.log(err)
-            // alert(err)
+            
             alert("Email or password incorrect")
         })
     }

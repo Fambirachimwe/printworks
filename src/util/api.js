@@ -38,6 +38,18 @@ export const fetchJobs = async () => {
 }
 
 
+export const fetchJobsByID = async (id) => {
+    // console.log(id)
+    const res = await fetch(`${url}/jobs/${id}`, {
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+
+    return res.json()
+}
+
+
 export const addJob = async ({ ...data }) => {
     const response = await fetch(
       `${url}/jobs/`,

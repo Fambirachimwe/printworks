@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { fetchCustomers } from '../../util/api';
 import JobForm from './JobForm';
 
@@ -23,25 +23,9 @@ const AddJob = () => {
                                 </div>
                                 <div className="card-header-toolbar d-flex align-items-center">
 
-
-                                    {/* New Job Form here  */}
-
-                                {/* Description
-                                quantity
-                                size
-                                stock 
-                                cover stock
-                                textstock
-                                status /////
-                                customer */}
-
-                                {/* JobForm Here */}
-                                <JobForm data={data} />
-
-
-
-                                    
-
+                        
+                                    <JobForm data={data} />
+         
                                 </div>
                             </div>
                             <div className="card-body pt-0">
