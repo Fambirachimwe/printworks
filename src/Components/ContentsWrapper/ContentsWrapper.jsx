@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import { useQuery } from 'react-query';
 import { fetchJobs } from "../../util/api";
 import JobTableRow from "./JobTableRow";
+import { connect } from "react-redux";
 
 
 
 
 
-const ContentsWrapper = () => {
+const ContentsWrapper = ({ user: {user: {role: {type}}}}) => {
 
   const { data } = useQuery('jobs', fetchJobs);
-
+ 
+  const printing = data ? data.filter(job => job.status === "printing") : null;
   const newJobs = data ? data.filter(job => job.status === "new").length : 0;
   const activeJobs = data ? data.filter(job => job.status === "active").length : 0;
   const printingJobs = data ? data.filter(job => job.status === "printing").length : 0;
@@ -276,7 +278,7 @@ const ContentsWrapper = () => {
                       </p>
                   <p className="mb-0">
                     <i className="las la-file-alt text-info mr-2 font-size-20"></i>{" "}
-                      {printingJobs == 0 ? 0 : `0${printingJobs}`} Jobs
+                      {printingJobs === 0 ? 0 : `0${printingJobs}`} Jobs
                     </p>
                 </Link>
               </div>
@@ -333,7 +335,7 @@ const ContentsWrapper = () => {
                       </p>
                   <p className="mb-0">
                     <i className="las la-file-alt text-success mr-2 font-size-20"></i>{" "}
-                    {completedJobs == 0 ? 0 : `0${completedJobs}`} Jobs
+                    {completedJobs === 0 ? 0 : `0${completedJobs}`} Jobs
                       </p>
                 </Link>
               </div>
@@ -361,19 +363,35 @@ const ContentsWrapper = () => {
                         <th scope="col">Customer</th>
                         <th scope="col">Description</th>
                         <th scope="col">Status</th>
-                        {/* <th scope="col">Mobile</th> */}
-                        {/* here its customer.customer.email */}
+                        
                         <th scope="col">Email</th>  
                       </tr>
                     </thead>
                     <tbody>
                       
                       {/* jobs table row */}
-                      {
-                        data ? data.map(data => (
-                          <JobTableRow key={data.id} data={data} />
-                        )):
-                        "NO DATA"
+                      { 
+                        type === "printer" ?
+
+                          (
+                            printing ?
+                              (
+                                printing.map(data => (
+                                  <JobTableRow key={data.id} data={data} />
+                                ))
+                              ) :
+                              <p>NO DATA</p>
+                          ) :
+
+                          (
+                            data ? (
+                              data.map(data => (
+                                <JobTableRow key={data.id} data={data} />
+                              ))
+                            ) : (null)
+                            
+                          )
+
                       }
                                  
                     </tbody>
@@ -391,4 +409,12 @@ const ContentsWrapper = () => {
   )
 }
 
-export default ContentsWrapper
+
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  }
+
+}
+
+export default connect(mapStateToProps)(ContentsWrapper);

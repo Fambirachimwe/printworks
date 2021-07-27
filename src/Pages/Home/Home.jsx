@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import AddJob from '../../Components/AddJob/AddJob'
 import Modal from '../../Components/AddJob/Modal'
 import ContentsWrapper from '../../Components/ContentsWrapper/ContentsWrapper'
+import CustomerDetail from '../../Components/CustomerDetail/CustomerDetail'
 import Customers from '../../Components/Customers/Customers'
 import Designers from '../../Components/Designers/Designers'
 import Files from '../../Components/Files/Files'
@@ -48,6 +49,13 @@ export const Home = () => (
                 <Route exact path={"/jobs/:id"} >
                     <JobDetail />
                 </Route>
+
+                {/* customer detail page */}
+
+                <Route exact path={"/customers/:id"} >
+                    <CustomerDetail />
+                </Route>
+
 
 
                 <Route exact path={"/myjobs"}>

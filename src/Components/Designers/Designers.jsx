@@ -66,8 +66,6 @@ const Designers = () => {
                                             }
 
 
-                                            {/* add Trow component */}
-
                                         </tbody>
                                     </table>
                                 </div>

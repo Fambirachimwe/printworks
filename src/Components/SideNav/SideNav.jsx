@@ -1,22 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
+import LogoWhite from "../../images/logo-white.png";
+import LogoBlack from "../../images/logo-black.png";
 
-const SideNav = ({user: {user: {role: {type}}}}) => {
 
-  console.log(type)
+const SideNav = ({ user: {user: {role: {type}}}}) => {
+
+  
+  // console.log(type)
 
   return (
     <div className="iq-sidebar  sidebar-default ">
       <div className="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <Link to="#" className="header-logo">
           <img
-            src="../assets/images/logo.png"
+            src={LogoWhite}
             className="img-fluid rounded-normal light-logo"
             alt="logo"
           />
           <img
-            src="../assets/images/logo-white.png"
+            src={LogoBlack}
             className="img-fluid rounded-normal darkmode-logo"
             alt="logo"
           />

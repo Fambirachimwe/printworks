@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.14.6",
+    "@material-ui/core": "^4.12.2",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
+    "concurrently": "^6.2.0",
     "eslint": "^7.29.0",
     "eslint-config-react-app": "^6.0.0",
     "react": "^17.0.2",
@@ -26,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "full-dev": "concurrently \"cd ../printworks && yarn develop \"  \"npm start \" "
   },
   "eslintConfig": {
     "extends": [

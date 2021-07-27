@@ -40,7 +40,7 @@ const Customers = () => {
                             <div className="card-header-toolbar d-flex align-items-center">
                                 <Link to="#" className=" view-more">
                                     Add New
-                      </Link>
+                                </Link>
                             </div>
                         </div>
                         <div className="card-body pt-0">

@@ -2,9 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-const Trow = ({data: {customer, contact_person, email, mobile}}) => (
+const Trow = ({data, data: {customer, contact_person, email, mobile}}) => (
 
+    
     <tr className="active">
+
+        {console.log(data)}
         <td>
             <div className="d-flex align-items-center">
                 <div className="icon-small bg-primary rounded mr-3">
@@ -41,7 +44,7 @@ const Trow = ({data: {customer, contact_person, email, mobile}}) => (
                     className="dropdown-menu dropdown-menu-right"
                     aria-labelledby="dropdownMenuButton7"
                 >
-                    <Link className="dropdown-item" to="#">
+                    <Link className="dropdown-item" to={`customers/${data.id}`}>
                         <i className="ri-eye-fill mr-2"></i>View
                                   </Link>
                     

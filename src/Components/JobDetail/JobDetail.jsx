@@ -1,27 +1,31 @@
-import React from 'react';
+
+import React, {useState} from 'react';
+import Modal from "../Modal/Modal";
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
 import {fetchJobsByID} from "../../util/api";
-
-// useQuery
-
-
-
+// import { fileTypes } from '../../util/constants';
 
 
 const JobDetail = () => {
 
     const { id } = useParams(); 
-    const { data } = useQuery(['jobsbyID', id] , () =>  fetchJobsByID(id));
-    // console.log(data.supplieds[0].files)
+    const { data, isLoading } = useQuery(['jobsbyID', id] , () =>  fetchJobsByID(id));
+    // console.log(data)
+    
+    const [show, setShow] = useState(false);
+    const [fileType, setType] = useState("");
+    const [title, setTitle] = useState("");
     
 
 
     return (
         <div className="content-page">
+            
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-12">
+                        <Modal show={show} title={title} setShow={setShow} id={id} type={fileType} />
                         <div className="card-transparent card-block card-stretch card-height mb-3">
                             <div className="d-flex justify-content-between">
                                 <div className="select-dropdown input-prepend input-append">
@@ -59,6 +63,16 @@ const JobDetail = () => {
                                 <div className="header-title">
                                     <h4 className="card-title">Supplied Artwork</h4>
                                 </div>
+                                <div className="card-header-toolbar d-flex align-items-center">
+                                    <Link to="#" onClick={() => {
+                                        setShow(true);
+                                        setType("supplied");
+                                        setTitle("Add Supplied Artwork")
+                                        
+                                        }}  className=" view-more">
+                                        Add New
+                                    </Link>
+                                </div>
                             </div>
                             <div className="card-body">
                                 <ul className="list-inline p-0 mb-0 row align-items-center">
@@ -66,29 +80,26 @@ const JobDetail = () => {
 
                                         {/* loop through the list of supplied art work  */}
 
-                                        {data ? data.supplieds.map(data => (
-                                            <Link to="#" onClick={() => window.open(`http://localhost:1337${data.files[0].url}`, "_blank")}>
-                                            <div data-load-file="file" data-load-target="#resolte-contaniner"   data-target="#exampleModal" data-title="Supplied Artworks" style={{ "cursor": "pointer" }} className="p-2 text-center border rounded">
-                                                <div>
-                                                    <img src="../assets/images/layouts/mydrive/folder-1.png" className="img-fluid mb-1" alt="image1" />
-                                                </div>
-                                                <p className="mb-0"></p>
-                                            </div>
-                                        </Link>
-                                        )) : ""}
+                                        {
+                                            isLoading ? (<p>Loading</p>) : (
+                                                null
+                                            ),
 
-                                        
-                                        
-                                    </li>
-                                    {/* <li className="col-lg-6 col-sm-6">
-                                        <div data-load-file="file" data-load-target="#resolte-contaniner" data-url={""} data-toggle="modal" data-target="#exampleModal" data-title="Wireframe.docx" style={{ "cursor": "pointer" }} className="p-2 text-center border rounded">
-                                            <div>
-                                                <img src="../assets/images/layouts/mydrive/folder-2.png" className="img-fluid mb-1" alt="image2" />
-                                            </div>
-                                            <p className="mb-0">Wireframe</p>
-                                        </div>
-
-                                    </li> */}
+                                            data ? (
+                                                data.supplieds.map(doc => (
+                                                    // console.log(doc.file_url),
+                                                    <div key={doc.id} onClick={() => window.open(`http://localhost:1337${doc.file_url}`, "_blank")} data-load-file="file"  style={{ "cursor": "pointer" }} >
+                                                        <div>
+                                                            <img src="../assets/images/layouts/mydrive/folder-2.png" className="img-fluid mb-1" alt="image2" />
+                                                        </div>
+                                                        <p className="mb-0">{doc.name}</p>
+                                                    </div>
+                                                ))
+                                                
+                                            ) : ("")                                         
+                                        }
+ 
+                                    </li> 
                                 </ul>
                             </div>
                         </div>
@@ -100,35 +111,89 @@ const JobDetail = () => {
                                 <div className="header-title">
                                     <h4 className="card-title">Artwork</h4>
                                 </div>
+
+                                <div className="card-header-toolbar d-flex align-items-center">
+                                    <Link to="#" onClick={() => {
+                                        setShow(true);
+                                        setType("artwork");
+                                        setTitle("Add Designer Artwork");
+                                        
+                                        }} className=" view-more">
+                                        Add New
+                                    </Link>
+                                </div>
                             </div>
                             <div className="card-body">
                                 <ul className="list-inline p-0 mb-0 row align-items-center">
-                                    <li className="col-lg-6 col-sm-6 mb-3 mb-sm-0">
 
-                                        
-                                        <div data-load-file="file" data-load-target="#resolte-contaniner" data-url={data ? `http://localhost:1337${data.supplieds[0].files[0].url}`: ""} data-toggle="modal" data-target="#exampleModal" data-title={ "Artwork"} style={{ "cursor": "pointer" }} className="p-2 text-center border rounded">
-                                            <div>
-                                                <img src="../assets/images/layouts/mydrive/folder-1.png" className="img-fluid mb-1" alt="image1" />
-                                            </div>
-                                            <p className="mb-0">Designed</p>
-                                        </div>
-                                    </li>
-                                    <li className="col-lg-6 col-sm-6">
-                                        <div data-load-file="file" data-load-target="#resolte-contaniner" data-url={""} data-toggle="modal" data-target="#exampleModal" data-title="Wireframe.docx" style={{ "cursor": "pointer" }} className="p-2 text-center border rounded">
-                                            <div>
-                                                <img src="../assets/images/layouts/mydrive/folder-2.png" className="img-fluid mb-1" alt="image2" />
-                                            </div>
-                                            <p className="mb-0">Printing</p>
-                                        </div>
+                                    {/* loop through the list of artwork */}
+                                    <li className="col-lg-6 col-sm-3 mb-3 mb-sm-0">
+                                        {
+                                            data ? (
+                                                data.artworks.map(doc => (
+                                                    
 
-                                    </li>
+                                                    <div key={doc.id} onClick={() => window.open(`http://localhost:1337${doc.file_url}`, "_blank")}  data-title={"Artwork"} style={{ "cursor": "pointer" }} className="p-2 text-center border rounded">
+                                                        <div>
+                                                            <img src="../assets/images/layouts/mydrive/folder-1.png" className="img-fluid mb-1" alt="image1" />
+                                                        </div>
+                                                        {/* <p className="mb-0">{doc.name}</p> */}
+                                                    </div>
+                                                ))
+                                                
+                                            ) : ("00")      
+                                        }
+                                    </li>    
                                 </ul>
                             </div>
                         </div>
                     </div>
 
+                    <div className="col-lg-12">
+                        <div className="card card-block card-stretch card-height">
+                            <div className="card-header d-flex justify-content-between">
+                                <div className="header-title">
+                                    <h4 className="card-title">Printing</h4>
+                                </div>
 
-                    
+                                <div className="card-header-toolbar d-flex align-items-center">
+                                    <Link to="#" onClick={() => {
+                                        setShow(true);
+                                        setType("printing");
+                                        setTitle("Add Final Printing Artwork");
+                                        
+                                        }} className=" view-more">
+                                        Add New
+                                </Link>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-inline p-0 mb-0 row align-items-center">
+
+                                    {/* loop through the list of printing */}
+                                    <li className="col-lg-6 col-sm-6">
+
+                                        {
+                                            data ? (
+                                                data.printing_files.map(doc => (
+                                                    
+
+                                                    <div key={doc.id} onClick={() => window.open(`http://localhost:1337${doc.file_url}`, "_blank")} data-load-file="file" data-load-target="#resolte-contaniner"  data-title={"Artwork"} style={{ "cursor": "pointer" }} className="p-2 text-center border rounded">
+                                                        <div>
+                                                            <img src="../assets/images/layouts/mydrive/folder-1.png" className="img-fluid mb-1" alt="image1" />
+                                                        </div>
+                                                        <p className="mb-0">{doc.name}</p>
+                                                    </div>
+                                                ))
+                                                
+                                            ) : (null)      
+                                        }
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>              
                 </div>
             </div>
         </div>

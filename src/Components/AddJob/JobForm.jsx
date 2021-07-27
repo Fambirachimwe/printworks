@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-// import axios from "axios";
 import { addJob } from '../../util/api';
 
 
@@ -9,7 +8,6 @@ import { addJob } from '../../util/api';
 
 const JobForm = ({ data }) => {
 
-
     const [customer, setCustomer] = useState("");
     const [description, setDescription] = useState("");
     const [size, setSize] = useState("");
@@ -17,22 +15,13 @@ const JobForm = ({ data }) => {
     const [coverStock, setCoverStock] = useState("");
     const [textStock, setTextStock] = useState("");
     const [quantity, setQuantity] = useState("");
-    const [supplied, setSupplied] = useState(null)
-    // event.target.files[0]
-
-
-    
     const mutation = useMutation(addJob);
     const queryClient = useQueryClient();
     const formData = new FormData(); // for the image
 
-
-
     const handleChange = (e) => {
 
         const field = e.target.name || "";
-        
-
         switch (field) {
             case "customer":
                 setCustomer(e.target.value);
@@ -63,37 +52,22 @@ const JobForm = ({ data }) => {
                 setQuantity(e.target.value)
                 break
 
-            case "supplied":
-                setQuantity(e.target.files[0])
-                formData.append(
-                    "supplied",
-                    supplied,
-                    supplied.name
-                );
-                break
-    
+           
 
             default:
                 break;
-        }
-
-        
+        } 
     }
 
     const handleSubmit =  (e) => {
         e.preventDefault();
         const data = {customer: customer, description: description,size: size, stock: stock, coverStock: coverStock, textStock: textStock, quantity: quantity , supplied: formData };
-        
-        // console.log(data)
         mutation.mutate({...data}, {
             onSuccess: () => {
                 queryClient.invalidateQueries('jobs')
                 
             }
         })
-      
-
-        // addJob(customer, description, size, stock,size, coverStock, textStock, quantity)
     }
 
     return (
@@ -150,10 +124,10 @@ const JobForm = ({ data }) => {
                     <input type="text" name="cover_stock" value={coverStock} onChange={handleChange} className="form-control" id="city" placeholder="Cover Stock" />
                 </div>
 
-                <div className="form-group col-sm-3">
+                {/* <div className="form-group col-sm-3">
                     <label for="city">Supplied Artwork</label>
                     <input type="file" name="supplied" value={supplied} onChange={handleChange} className="form-control" id="city" placeholder="Cover Stock" />
-                </div>
+                </div> */}
             </div>
             <hr></hr>
 

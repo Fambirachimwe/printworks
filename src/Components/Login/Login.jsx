@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-
-// import { loginPost } from "../../util/api"
 import { connect } from "react-redux";
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../../util/constants';
+
+import LogoBlack from "../../images/logo-black.png";
+import LogoWhite from "../../images/logo-white.png"
 
 
 const Login = ({isAuth, setUser}) => {
@@ -20,22 +21,19 @@ const Login = ({isAuth, setUser}) => {
             identifier: email,
             password: password
         }).then( user => {
-            // store the tocken in localStorage
             localStorage.setItem("token", user.data.jwt);
             isAuth(); // dispatching to redux state
             setUser(user.data);
             history.push("/")  
             
-            // console.log(user)
-            
         }).catch(err =>{
-            
+
+            console.log(err)
             alert("Email or password incorrect")
         })
     }
 
     const handleChangeEmail = (e) => {
-        // console.log(e.target.value)
         setEmail(e.target.value)
     }
 
@@ -51,7 +49,7 @@ const Login = ({isAuth, setUser}) => {
                         <div className="col-md-5 col-sm-12 col-12 align-self-center">
                             <div className="sign-user_card">
                                 {/* <img src="../assets/images/logo.png" className="img-fluid rounded-normal light-logo logo" alt="logo"/> */}
-                                <img src="../assets/images/logo-white.png" className="img-fluid rounded-normal darkmode-logo logo" alt="logo" />
+                                <img src={LogoWhite} className="img-fluid rounded-normal darkmode-logo logo" alt="logo" />
                                 <h3 className="mb-3">Sign In</h3>
                                 <p>Login to stay connected.</p>
                                 <form>
