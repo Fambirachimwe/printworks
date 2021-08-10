@@ -99,7 +99,7 @@ const JobTableRow = ({ user, data: { id, customer: { customer, email }, descript
 
                                                     <>
                                                         <i  className="ri-printer-fill mr-2"></i>
-                                            Print
+                                            Update to completed 
                                             {/* {console.log(id)} */}
 
                                                     </>
@@ -110,10 +110,10 @@ const JobTableRow = ({ user, data: { id, customer: { customer, email }, descript
 
                                     </Link>
 
-                                    <Link className="dropdown-item" to="#">
+                                    {/* <Link className="dropdown-item" to="#">
                                         <i className="ri-file-download-fill mr-2"></i>
-                            Download
-                        </Link>
+                                        Download
+                                    </Link> */}
                                 </div>
                             </div>
 
