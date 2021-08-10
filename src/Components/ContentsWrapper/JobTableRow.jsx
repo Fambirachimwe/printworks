@@ -22,6 +22,14 @@ const JobTableRow = ({ user, data: { id, customer: { customer, email }, descript
         await queryClient.invalidateQueries('jobs');
     }
 
+    const updateJobToActive = async(id) => {
+        const data = { status: "active" }
+        mutation.mutate({ ...data, id });
+        await queryClient.invalidateQueries('jobsByID');
+    }
+
+    console.log(user.user.role.type);
+
     return (
         <tr>
 
@@ -58,11 +66,32 @@ const JobTableRow = ({ user, data: { id, customer: { customer, email }, descript
                                         <i className="ri-delete-bin-6-fill mr-2"  ></i>
                                         Delete
                                     </Link>
-                                    <Link className="dropdown-item" to="#">
-                                        <i className="ri-pencil-fill mr-2"></i>Edit
+                                 
+                                        {
+                                            user.user.role.type === "designer" ? (
+                                                <>
+                                                    <Link className="dropdown-item" to="#" onClick={() => updateJobToActive(id)} >
+                                                        <i className="ri-pencil-fill mr-2"></i>Update Status
+                                                </Link>
+
+                                                </>
+
+                                            ) : (
+                                                <>
+                                                    <Link className="dropdown-item" to="#" >
+                                                        <i className="ri-pencil-fill mr-2"></i>'Edit'
+                                                </Link>
+
+                                                </>
+
+                                            )
+                                        }
 
 
-                                    </Link>
+
+
+
+
                                     <Link onClick={() => updateJob(id)} className="dropdown-item" to="#">
                                         {
                                             user ? (

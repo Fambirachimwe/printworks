@@ -20,7 +20,7 @@ const ContentsWrapper = ({ user: {user: {role: {type}}}}) => {
   const completedJobs = data ? data.filter(job => job.status === "completed").length : 0;
 
 
-  // console.log(data)
+  console.log(type)
 
   return (
     <div className="content-page">
@@ -143,7 +143,7 @@ const ContentsWrapper = ({ user: {user: {role: {type}}}}) => {
                               Delete
                             </Link>
                         <Link className="dropdown-item" to="#">
-                          <i className="ri-pencil-fill mr-2"></i>Edit
+                          <i className="ri-pencil-fill mr-2"></i>{`Edit`}
                             </Link>
                         <Link className="dropdown-item" to="#">
                           <i className="ri-printer-fill mr-2"></i>Print

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const TrowDesigner = ({data, data: {username, email, mobile, jobs}}) => (
+const TrowDesigner = ({data, data: {job_assigneds,username, email, mobile, jobs}}) => (
     <tr className="active">
     <td>
         <div className="d-flex align-items-center">
@@ -25,7 +25,7 @@ const TrowDesigner = ({data, data: {username, email, mobile, jobs}}) => (
     {/* {console.log(data)} */}
     <td>{email}</td>
     <td>{mobile || "n/a"}</td>
-    <td>{jobs || 0}</td>
+    <td>{job_assigneds.length || 0}</td>
     <td>
         <div className="dropdown">
             <span

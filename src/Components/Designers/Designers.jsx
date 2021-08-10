@@ -10,7 +10,7 @@ import TrowDesigner from './TrowDesigner';
 const Designers = () => {
 
     const {data} = useQuery('designers', fetchDesigners);
-    console.log(data)
+    // console.log(data)
 
 
     return (
@@ -59,10 +59,14 @@ const Designers = () => {
 
 
                                             {
-                                                data ? data.map(data => (
+                                                data ? data.filter(designer => designer.role.name === "Designer").map(data => (
                                                     <TrowDesigner key={data.id} data={data} />
-                                                ))
-                                                : "NO DATA"
+                                                )): ("no designers")
+
+                                                // data ? data.map(data => (
+                                                //     <TrowDesigner key={data.id} data={data} />
+                                                // ))
+                                                // : "NO DATA"
                                             }
 
 
